@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -50,8 +51,17 @@ namespace Examples {
             text.text = "Sending...";
             stopButton.interactable = false;
             HuggingFaceAPI.AutomaticSpeechRecognition(bytes, response => {
-                text.color = Color.white;
-                text.text = response;
+                double similarity = JaroWinklerSimilarity(response, "Hello");
+                if (similarity >= 0.5)
+                {
+                    text.color = Color.white;
+                    text.text = response;
+                }
+                else
+                {
+                    text.color = Color.red;
+                    text.text = "Jawaban salah atau pengucapan kurang tepat";
+                }
                 startButton.interactable = true;
             }, error => {
                 text.color = Color.red;
@@ -83,6 +93,42 @@ namespace Examples {
                 }
                 return memoryStream.ToArray();
             }
+        }
+
+        static double JaroWinklerSimilarity(string s1, string s2)
+        {
+            int prefixLength = 0;
+            int maxPrefixLength = Math.Min(s1.Length, s2.Length) / 2 - 1;
+
+            while (prefixLength < maxPrefixLength && s1[prefixLength] == s2[prefixLength])
+            {
+                prefixLength++;
+            }
+
+            double jaroSimilarity = JaroSimilarity(s1, s2);
+            double prefixScale = 0.1 * prefixLength * (1 - jaroSimilarity);
+
+            return jaroSimilarity + prefixScale;
+        }
+
+        static double JaroSimilarity(string s1, string s2)
+        {
+            int matchDistance = Math.Max(s1.Length, s2.Length) / 2 - 1;
+            int matches = 0;
+
+            for (int i = 0; i < s1.Length; i++)
+            {
+                for (int j = Math.Max(0, i - matchDistance); j < Math.Min(s2.Length, i + matchDistance + 1); j++)
+                {
+                    if (s1[i] == s2[j])
+                    {
+                        matches++;
+                        break;
+                    }
+                }
+            }
+
+            return (double)matches / (s1.Length + s2.Length - matches);
         }
     }
 }

@@ -43,6 +43,8 @@ public class LobbyConversation : MonoBehaviour
         if (talk)
         {
             talk = false;
+            if (talkIndex != 0)
+                subtitles[talkIndex - 1].subtitle.SetActive(false);
             subtitles[talkIndex].subtitle.SetActive(true);
             switch (talkIndex)
             {
