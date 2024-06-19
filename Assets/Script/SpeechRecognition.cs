@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using HuggingFace.API;
+using Conversation;
 
 namespace Examples {
     public class SpeechRecognitionExample : MonoBehaviour {
@@ -56,6 +57,7 @@ namespace Examples {
                 {
                     text.color = Color.white;
                     text.text = response;
+                    LobbyConversation.talk = true;
                 }
                 else
                 {
