@@ -2,7 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 namespace Conversation 
 {
@@ -13,14 +14,21 @@ namespace Conversation
         public AudioClip secondClip;
         public AudioClip thirdClip;
         public AudioClip fourthClip;
-        public AudioClip fifthClip;
         public AudioClip microphoneClip;
 
 
         public static bool talk;
         public int talkIndex;
         public int listenIndex;
-        public string microphoneName;
+        public bool sceneFinished;
+
+        [Serializable] 
+        class Listen
+        {
+            [SerializeField] public GameObject listenButton;
+            [SerializeField] public GameObject listenText;
+            [SerializeField] public TextMeshProUGUI text;
+        }
 
         [Serializable]
         class Subtitle
@@ -31,10 +39,11 @@ namespace Conversation
 
         [SerializeField]
         List<Subtitle> subtitles = new List<Subtitle>();
+        [SerializeField]
+        Listen listen = new Listen();
         public void Start()
         {
             audioSource = GetComponent<AudioSource>();
-            microphoneName = Microphone.devices[0];
             talk = true;
             talkIndex = 0;
             listenIndex = 0;
@@ -47,33 +56,45 @@ namespace Conversation
                 talk = false;
                 if (talkIndex != 0)
                     subtitles[talkIndex - 1].subtitle.SetActive(false);
-                subtitles[talkIndex].subtitle.SetActive(true);
+                
+                listen.listenButton.SetActive(false);
+                listen.listenText.SetActive(false);
                 switch (talkIndex)
                 {
                     case 0:
+                        subtitles[talkIndex].subtitle.SetActive(true);
                         audioSource.PlayOneShot(firstClip);
                         talkIndex += 1;
                         break;
                     case 1:
+                        subtitles[talkIndex].subtitle.SetActive(true);
                         audioSource.PlayOneShot(secondClip);
                         talkIndex += 1;
                         Invoke(nameof(EnableThirdClip), secondClip.length);
+                        listen.text.text = "";
                         break;
                     case 2:
+                        subtitles[talkIndex].subtitle.SetActive(true);
                         audioSource.PlayOneShot(thirdClip);
                         talkIndex += 1;
                         break;
                     case 3:
                         audioSource.PlayOneShot(fourthClip);
-                        Invoke(nameof(PlayFifthClip), fourthClip.length);
-                        subtitles[talkIndex].subtitle.SetActive(true);
-                        talkIndex += 1;
+                        Invoke(nameof(ShowSubtitle4), 3.35f);
+                        sceneFinished = true;
                         break;
                 }
             }
             else
             {
-                subtitles[talkIndex - 1].subtitle.SetActive(false);
+                if (sceneFinished)
+                    SceneManager.LoadScene("StartScene");
+                else
+                {
+                    subtitles[talkIndex - 1].subtitle.SetActive(false);
+                    listen.listenButton.SetActive(true);
+                    listen.listenText.SetActive(true);
+                }
             }
         }
 
@@ -81,9 +102,9 @@ namespace Conversation
         {
             talk = true;
         }
-        private void PlayFifthClip()
+        private void ShowSubtitle4()
         {
-            audioSource.PlayOneShot(fifthClip);
+            subtitles[talkIndex].subtitle.SetActive(true);
         }
     }
 }
