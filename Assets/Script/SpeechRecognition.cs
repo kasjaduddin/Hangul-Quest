@@ -5,9 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using HuggingFace.API;
 using Conversation;
+using System.Collections.Generic;
 
-namespace Examples {
-    public class SpeechRecognitionExample : MonoBehaviour {
+namespace SpeechRecognition
+{
+    public class LobbySpeechRecognition : MonoBehaviour {
         [SerializeField] private Button startButton;
         [SerializeField] private Button stopButton;
         [SerializeField] private TextMeshProUGUI text;
@@ -15,11 +17,22 @@ namespace Examples {
         private AudioClip clip;
         private byte[] bytes;
         private bool recording;
+        public int objectiveIndex;
 
+        [Serializable]
+        class Objective
+        {
+            [SerializeField] public GameObject objective;
+        }
+
+        [SerializeField]
+        List<Objective> objectives = new List<Objective>();
         private void Start() {
             startButton.onClick.AddListener(StartRecording);
             stopButton.onClick.AddListener(StopRecording);
             stopButton.interactable = false;
+            objectiveIndex = 0;
+            objectives[objectiveIndex].objective.SetActive(true);
         }
 
         private void Update() {

@@ -16,7 +16,6 @@ namespace Conversation
         public AudioClip fourthClip;
         public AudioClip microphoneClip;
 
-
         public static bool talk;
         public int talkIndex;
         public int listenIndex;
@@ -33,8 +32,7 @@ namespace Conversation
         [Serializable]
         class Subtitle
         {
-            [SerializeField]
-            public GameObject subtitle;
+            [SerializeField] public GameObject subtitle;
         }
 
         [SerializeField]
