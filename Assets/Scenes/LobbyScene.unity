@@ -419,9 +419,6 @@ MonoBehaviour:
   thirdClip: {fileID: 8300000, guid: 05bb2feabba9a9842b199f189b096bb4, type: 3}
   fourthClip: {fileID: 8300000, guid: 9fbb81e680cd9184c998066365af6ed7, type: 3}
   microphoneClip: {fileID: 0}
-  talkIndex: 0
-  listenIndex: 0
-  sceneFinished: 0
   subtitles:
   - subtitle: {fileID: 2033477050}
   - subtitle: {fileID: 1740125904}
@@ -478,7 +475,6 @@ MonoBehaviour:
   startButton: {fileID: 2093121948}
   stopButton: {fileID: 485340308}
   text: {fileID: 1561734140}
-  objectiveIndex: 0
   objectives:
   - objective: {fileID: 1065666434}
   - objective: {fileID: 1451810397}
@@ -2333,6 +2329,7 @@ GameObject:
   - component: {fileID: 301700233}
   - component: {fileID: 301700232}
   - component: {fileID: 301700231}
+  - component: {fileID: 301700238}
   m_Layer: 5
   m_Name: Objective Task Canvas
   m_TagString: Untagged
@@ -2463,6 +2460,33 @@ RectTransform:
   m_AnchoredPosition: {x: 2.026, y: 2.13}
   m_SizeDelta: {x: 800, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &301700238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301700230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a2d7d89889b4d94fa1f8d6fe49788e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 0}
+  m_TargetOffset: {x: 1.7, y: 1, z: 2.3}
+  m_FollowInLocalSpace: 0
+  m_ApplyTargetInLocalSpace: 0
+  m_MovementSpeed: 6
+  m_MovementSpeedVariancePercentage: 0.25
+  m_SnapOnEnable: 1
+  m_PositionFollowMode: 1
+  m_MinDistanceAllowed: 0.01
+  m_MaxDistanceAllowed: 0.3
+  m_TimeUntilThresholdReachesMaxDistance: 3
+  m_RotationFollowMode: 3
+  m_MinAngleAllowed: 0.1
+  m_MaxAngleAllowed: 5
+  m_TimeUntilThresholdReachesMaxAngle: 3
 --- !u!1 &306786010
 GameObject:
   m_ObjectHideFlags: 0
@@ -7737,7 +7761,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 804166681}
-  m_CullTransparentMesh: 1
+  m_CullTransparentMesh: 0
 --- !u!1 &805828071
 GameObject:
   m_ObjectHideFlags: 0

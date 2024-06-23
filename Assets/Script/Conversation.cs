@@ -17,9 +17,9 @@ namespace Conversation
         public AudioClip microphoneClip;
 
         public static bool talk;
-        public int talkIndex;
-        public int listenIndex;
-        public bool sceneFinished;
+        private int talkIndex;
+        private int listenIndex;
+        private bool sceneFinished;
 
         [Serializable] 
         class Listen
