@@ -17,8 +17,8 @@ namespace SpeechRecognition
         private AudioClip clip;
         private byte[] bytes;
         private bool recording;
-        private int speechIndex;
         private int objectiveIndex;
+        [SerializeField] private int speechIndex;
 
         [Serializable]
         class Objective
