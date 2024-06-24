@@ -65,7 +65,7 @@ namespace Conversation
                     case 1:
                         audioSource.PlayOneShot(secondClip);
                         talkIndex += 1;
-                        Invoke(nameof(EnableThirdClip), secondClip.length);
+                        Invoke(nameof(TalkAgain), secondClip.length);
                         break;
                     case 2:
                         audioSource.PlayOneShot(thirdClip);
@@ -85,7 +85,7 @@ namespace Conversation
                 }
             }
         }
-        private void EnableThirdClip()
+        private void TalkAgain()
         {
             talk = true;
         }
