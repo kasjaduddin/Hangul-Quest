@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -7,9 +7,9 @@ using HuggingFace.API;
 using Conversation;
 using System.Collections.Generic;
 
-namespace SpeechRecognition
+namespace Speech
 {
-    public class LobbySpeechRecognition : MonoBehaviour {
+    public class SpeechRecognition : MonoBehaviour {
         [SerializeField] private Button startButton;
         [SerializeField] private Button stopButton;
         [SerializeField] private TextMeshProUGUI text;
@@ -17,8 +17,16 @@ namespace SpeechRecognition
         private AudioClip clip;
         private byte[] bytes;
         private bool recording;
-        private int objectiveIndex;
+
         [SerializeField] private int speechIndex;
+        private int objectiveIndex;
+        private string firstSpeech = "안녕하세요, 제 이름은 부디입니다";
+        private string secondSpeech = "진희는 한국인인가요?";
+        private string thirdSpeech = "아니요, 저는 인도네시아 사람입니다";
+        private string fourthSpeech = "진희 씨, 학생들이 캠퍼스 컴퓨터를 빌려서 과제를 할 수 있나요?";
+        private string fifthSpeech = "안녕하세요 선생님, 숙제를 하기 위해 컴퓨터를 빌릴 수 있습니까?";
+        private string sixthSpeech = "좋아, 작업을 완료한 후 불을 끄겠습니다";
+        private string seventhSpeech = "안녕하세요 선생님, 실험실의 전기가 끊겼습니다";
 
         [Serializable]
         class Objective
@@ -66,18 +74,34 @@ namespace SpeechRecognition
             text.text = "Sending...";
             stopButton.interactable = false;
             HuggingFaceAPI.AutomaticSpeechRecognition(bytes, response => {
-                double similarity = JaroWinklerSimilarity(response, "Hello");
-                if (similarity >= 0.5)
+                double similarity = 0.0;
+                switch (speechIndex)
                 {
-                    text.color = Color.white;
-                    text.text = response;
-                    LobbyConversation.talk = true;
+                    case 0:
+                        similarity = JaroWinklerSimilarity(response, "Hello");
+                        //similarity = JaroWinklerSimilarity(response, firstSpeech);
+                        break;
+                    case 1:
+                        similarity = JaroWinklerSimilarity(response, "Hello");
+                        //similarity = JaroWinklerSimilarity(response, secondSpeech);
+                        break;
+                    case 2:
+                        similarity = JaroWinklerSimilarity(response, thirdSpeech);
+                        break;
+                    case 3:
+                        similarity = JaroWinklerSimilarity(response, fourthSpeech);
+                        break;
+                    case 4:
+                        similarity = JaroWinklerSimilarity(response, fifthSpeech);
+                        break;
+                    case 5:
+                        similarity = JaroWinklerSimilarity(response, sixthSpeech);
+                        break;
+                    case 6:
+                        similarity = JaroWinklerSimilarity(response, seventhSpeech);
+                        break;
                 }
-                else
-                {
-                    text.color = Color.red;
-                    text.text = "Jawaban salah atau pengucapan kurang tepat";
-                }
+                SimilarityCheck(similarity, "Hello");
                 startButton.interactable = true;
             }, error => {
                 text.color = Color.red;
@@ -145,6 +169,36 @@ namespace SpeechRecognition
             }
 
             return (double)matches / (s1.Length + s2.Length - matches);
+        }
+        private void SimilarityCheck(double similarity, string speech)
+        {
+            if (similarity >= 0.5)
+            {
+                text.color = Color.white;
+                text.text = speech;
+                NextObjective();
+                speechIndex++;
+                LobbyConversation.talk = true;
+            }
+            else
+            {
+                text.color = Color.red;
+                text.text = "Jawaban salah atau pengucapan kurang tepat";
+            }
+        }
+
+        private void NextObjective()
+        {
+            switch (speechIndex) 
+            {
+                case 0:
+                    objectiveIndex++;
+                    break;
+                default: 
+                    break;
+            }
+            objectives[objectiveIndex-1].objective.SetActive(false);
+            objectives[objectiveIndex].objective.SetActive(true);
         }
     }
 }

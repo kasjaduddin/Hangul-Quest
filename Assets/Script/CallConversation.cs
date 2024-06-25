@@ -61,16 +61,16 @@ namespace Conversation
                     case 0:
                         audioSource.PlayOneShot(firstClip);
                         Invoke(nameof(TalkAgain), firstClip.length);
-                        talkIndex += 1;
+                        talkIndex++;
                         break;
                     case 1:
                         audioSource.PlayOneShot(secondClip);
-                        talkIndex += 1;
+                        talkIndex++;
                         Invoke(nameof(TalkAgain), secondClip.length);
                         break;
                     case 2:
                         audioSource.PlayOneShot(thirdClip);
-                        talkIndex += 1;
+                        talkIndex++;
                         sceneFinished = true;
                         break;
                 }

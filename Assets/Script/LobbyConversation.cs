@@ -62,18 +62,18 @@ namespace Conversation
                     case 0:
                         subtitles[talkIndex].subtitle.SetActive(true);
                         audioSource.PlayOneShot(firstClip);
-                        talkIndex += 1;
+                        talkIndex++;
                         break;
                     case 1:
                         subtitles[talkIndex].subtitle.SetActive(true);
                         audioSource.PlayOneShot(secondClip);
-                        talkIndex += 1;
+                        talkIndex++;
                         Invoke(nameof(TalkAgain), secondClip.length);
                         break;
                     case 2:
                         subtitles[talkIndex].subtitle.SetActive(true);
                         audioSource.PlayOneShot(thirdClip);
-                        talkIndex += 1;
+                        talkIndex++;
                         break;
                     case 3:
                         audioSource.PlayOneShot(fourthClip);

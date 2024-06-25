@@ -475,6 +475,7 @@ MonoBehaviour:
   startButton: {fileID: 2093121948}
   stopButton: {fileID: 485340308}
   text: {fileID: 1561734140}
+  speechIndex: 0
   objectives:
   - objective: {fileID: 1065666434}
   - objective: {fileID: 1451810397}
@@ -3452,9 +3453,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 32782400}
-          m_TargetAssemblyTypeName: LobbyConversation, Assembly-CSharp
-          m_MethodName: 
+        - m_Target: {fileID: 32782403}
+          m_TargetAssemblyTypeName: Conversation.LobbyConversation, Assembly-CSharp
+          m_MethodName: Next
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
