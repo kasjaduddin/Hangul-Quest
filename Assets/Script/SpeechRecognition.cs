@@ -84,21 +84,27 @@ namespace Speech
                     case 1:
                         similarity = JaroWinklerSimilarity(response, "Hello");
                         //similarity = JaroWinklerSimilarity(response, secondSpeech);
+                        LobbyConversation.talk = true;
                         break;
                     case 2:
                         similarity = JaroWinklerSimilarity(response, thirdSpeech);
+                        LobbyConversation.talk = true;
                         break;
                     case 3:
                         similarity = JaroWinklerSimilarity(response, fourthSpeech);
+                        ClassLaboratoryConversation.talk = true;
                         break;
                     case 4:
                         similarity = JaroWinklerSimilarity(response, fifthSpeech);
+                        ClassLaboratoryConversation.talk = true;
                         break;
                     case 5:
                         similarity = JaroWinklerSimilarity(response, sixthSpeech);
+                        ClassLaboratoryConversation.sceneFinished = true;
                         break;
                     case 6:
                         similarity = JaroWinklerSimilarity(response, seventhSpeech);
+                        CallConversation.talk = true;
                         break;
                 }
                 SimilarityCheck(similarity, "Hello");
@@ -178,7 +184,6 @@ namespace Speech
                 text.text = speech;
                 NextObjective();
                 speechIndex++;
-                LobbyConversation.talk = true;
             }
             else
             {

@@ -18,7 +18,7 @@ namespace Conversation
         public static bool talk;
         private int talkIndex;
         private int listenIndex;
-        public static bool sceneFinished;
+        public static bool callFinished;
 
         [Serializable] 
         class Listen
@@ -71,15 +71,15 @@ namespace Conversation
                     case 2:
                         audioSource.PlayOneShot(thirdClip);
                         talkIndex++;
-                        sceneFinished = true;
+                        callFinished = true;
+                        break;
+                    default: 
                         break;
                 }
             }
             else
             {
-                if (sceneFinished)
-                    SceneManager.LoadScene("StartScene");
-                else
+                if (!callFinished)
                 {
                     subtitles[talkIndex - 1].subtitle.SetActive(false);
                     listen.listenButton.SetActive(true);
