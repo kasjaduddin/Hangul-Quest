@@ -85,7 +85,7 @@ namespace Conversation
             else
             {
                 if (sceneFinished)
-                    SceneManager.LoadScene("StartScene");
+                    SceneManager.LoadScene("ClassLaboratoryScene");
                 else
                 {
                     subtitles[talkIndex - 1].subtitle.SetActive(false);

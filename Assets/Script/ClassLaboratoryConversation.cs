@@ -79,7 +79,8 @@ namespace Conversation
                     SceneManager.LoadScene("StartScene");
                 else
                 {
-                    subtitles[talkIndex - 1].subtitle.SetActive(false);
+                    if (talkIndex != 0)
+                        subtitles[talkIndex - 1].subtitle.SetActive(false);
                     listen.listenButton.SetActive(true);
                     listen.listenText.SetActive(true);
                 }
