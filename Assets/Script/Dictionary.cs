@@ -41,7 +41,7 @@ public class Dictionary : MonoBehaviour
 
     public void NextPage(Vector2 thumbstickValue)
     {
-        if (thumbstickValue.x == 1)
+        if (thumbstickValue.x == -1)
         {
             pages[pageOpen].page.SetActive(false);
             if (pageOpen == 4)
@@ -50,7 +50,7 @@ public class Dictionary : MonoBehaviour
                 pageOpen++;
             pages[pageOpen].page.SetActive(true);
         }
-        if (thumbstickValue.x == -1)
+        if (thumbstickValue.x == 1)
         {
             pages[pageOpen].page.SetActive(false);
             if (pageOpen == 0)

@@ -12,7 +12,10 @@ namespace Speech
     public class SpeechRecognition : MonoBehaviour {
         [SerializeField] private Button startButton;
         [SerializeField] private Button stopButton;
+        [SerializeField] private GameObject recordButton;
         [SerializeField] private TextMeshProUGUI text;
+        [SerializeField] private AudioSource objectiveAudioSource;
+        [SerializeField] private AudioClip objectiveSfx;
 
         private AudioClip clip;
         private byte[] bytes;
@@ -75,15 +78,14 @@ namespace Speech
             stopButton.interactable = false;
             HuggingFaceAPI.AutomaticSpeechRecognition(bytes, response => {
                 double similarity = 0.0;
+                Debug.Log(response);
                 switch (speechIndex)
                 {
                     case 0:
-                        similarity = JaroWinklerSimilarity(response, "Hello");
-                        //similarity = JaroWinklerSimilarity(response, firstSpeech);
+                        similarity = JaroWinklerSimilarity(response, firstSpeech);
                         break;
                     case 1:
-                        similarity = JaroWinklerSimilarity(response, "Hello");
-                        //similarity = JaroWinklerSimilarity(response, secondSpeech);
+                        similarity = JaroWinklerSimilarity(response, secondSpeech);
                         LobbyConversation.talk = true;
                         break;
                     case 2:
@@ -199,11 +201,16 @@ namespace Speech
                 case 0:
                     objectiveIndex++;
                     break;
+                case 1:
+                case 2:
+                    recordButton.SetActive(false);
+                    break;
                 default: 
                     break;
             }
             objectives[objectiveIndex-1].objective.SetActive(false);
             objectives[objectiveIndex].objective.SetActive(true);
+            objectiveAudioSource.PlayOneShot(objectiveSfx);
         }
     }
 }
