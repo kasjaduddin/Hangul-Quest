@@ -82,34 +82,47 @@ namespace Speech
                 switch (speechIndex)
                 {
                     case 0:
-                        similarity = JaroWinklerSimilarity(response, firstSpeech);
+                        //similarity = JaroWinklerSimilarity(response, firstSpeech);
+                        similarity = JaroWinklerSimilarity(response, "First Test");
+                        SimilarityCheck(similarity, firstSpeech);
                         break;
                     case 1:
-                        similarity = JaroWinklerSimilarity(response, secondSpeech);
+                        //similarity = JaroWinklerSimilarity(response, secondSpeech);
+                        similarity = JaroWinklerSimilarity(response, "Second Test");
+                        SimilarityCheck(similarity, secondSpeech);
                         LobbyConversation.talk = true;
                         break;
                     case 2:
-                        similarity = JaroWinklerSimilarity(response, thirdSpeech);
+                        //similarity = JaroWinklerSimilarity(response, thirdSpeech);
+                        similarity = JaroWinklerSimilarity(response, "Third Test");
+                        SimilarityCheck(similarity, thirdSpeech);
                         LobbyConversation.talk = true;
                         break;
                     case 3:
-                        similarity = JaroWinklerSimilarity(response, fourthSpeech);
+                        //similarity = JaroWinklerSimilarity(response, fourthSpeech);
+                        similarity = JaroWinklerSimilarity(response, "Fourth Test");
+                        SimilarityCheck(similarity, fourthSpeech);
                         ClassLaboratoryConversation.talk = true;
                         break;
                     case 4:
-                        similarity = JaroWinklerSimilarity(response, fifthSpeech);
+                        //similarity = JaroWinklerSimilarity(response, fifthSpeech);
+                        similarity = JaroWinklerSimilarity(response, "Fifth Test");
+                        SimilarityCheck(similarity, fifthSpeech);
                         ClassLaboratoryConversation.talk = true;
                         break;
                     case 5:
-                        similarity = JaroWinklerSimilarity(response, sixthSpeech);
+                        //similarity = JaroWinklerSimilarity(response, sixthSpeech);
+                        similarity = JaroWinklerSimilarity(response, "Sixth Test");
+                        SimilarityCheck(similarity, sixthSpeech);
                         ClassLaboratoryConversation.sceneFinished = true;
                         break;
                     case 6:
-                        similarity = JaroWinklerSimilarity(response, seventhSpeech);
+                        //similarity = JaroWinklerSimilarity(response, seventhSpeech);
+                        similarity = JaroWinklerSimilarity(response, "Seventh Test");
+                        SimilarityCheck(similarity, seventhSpeech);
                         CallConversation.talk = true;
                         break;
                 }
-                SimilarityCheck(similarity, "Hello");
                 startButton.interactable = true;
             }, error => {
                 text.color = Color.red;
